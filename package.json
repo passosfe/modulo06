@@ -10,12 +10,18 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/async-storage": "react-native-community/async-storage",
+    "axios": "^0.19.0",
+    "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-native": "0.61.4",
     "react-native-gesture-handler": "^1.5.0",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-reanimated": "^1.4.0",
     "react-native-screens": "^1.0.0-alpha.23",
+    "react-native-shimmer-placeholder": "^1.0.35",
     "react-native-vector-icons": "^6.6.0",
+    "react-native-webview": "^7.5.1",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3",
     "reactotron-react-native": "^4.0.2",
