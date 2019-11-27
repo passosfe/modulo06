@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import api from '../../services/api';
 
 import {
@@ -28,6 +27,7 @@ export default class User extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       getParam: PropTypes.func,
+      navigate: PropTypes.func,
     }).isRequired,
   };
 
@@ -43,15 +43,20 @@ export default class User extends Component {
     const { navigation } = this.props;
     const user = navigation.getParam('user');
 
-    const loadingData = new Array(10).fill({
-      owner: {
-        avatar_url: 'loading',
-        login: 'loading',
-      },
-      name: 'loading',
-    });
+    const fakeData = [];
 
-    this.setState({ loading: true, loadingData });
+    for (let i = 0; i < 10; i++) {
+      fakeData.push({
+        id: String(i),
+        owner: {
+          avatar_url: 'loading',
+          login: 'loading',
+        },
+        name: 'loading',
+      });
+    }
+
+    this.setState({ loading: true, loadingData: fakeData });
 
     const response = await api.get(`/users/${user.login}/starred`);
 
@@ -93,7 +98,7 @@ export default class User extends Component {
 
   render() {
     const { navigation } = this.props;
-    const { stars, loading, refreshing } = this.state;
+    const { stars, loading, refreshing, loadingData } = this.state;
 
     const user = navigation.getParam('user');
 
@@ -106,7 +111,7 @@ export default class User extends Component {
         </Header>
 
         <Stars
-          data={stars}
+          data={loading ? loadingData : stars}
           keyExtractor={star => String(star.id)}
           onEndReachedThreshold={0.2} // Carrega mais itens quando chegar em 20% do fim
           onEndReached={this.loadMore}
